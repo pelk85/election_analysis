@@ -1,5 +1,4 @@
 #Add dependencies
-from genericpath import isfile
 import os
 import csv
 #Assign a variable to load a file from a path
@@ -47,6 +46,22 @@ with open(file_to_load) as election_data:
         # Add a vote to that candidate's count
         candidate_votes[candidate_name] += 1
 
+# Save the results to our text file.
+with open(file_to_save, "w") as txt_file:
+
+# Print the final vote count to the terminal.
+    election_results = (       
+        f"\nElection Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {total_votes:,}\n"
+        f"-------------------------\n")
+    
+    print(election_results, end="")
+            
+    # Save the final vote count to the text file.
+    txt_file.write(election_results)
+
+
 # Determine the % of votes for each candidate
 # 1. iterate through the candidate list 
 for candidate_name in candidate_votes: 
@@ -54,9 +69,7 @@ for candidate_name in candidate_votes:
     votes = candidate_votes[candidate_name]
     # 3. Calculate the % of votes 
     vote_percentage = float(votes) / float(total_votes) * 100
-    # 4. Print the candidate name and % of votes 
-    # print(f"{candidate_name}: recieved {vote_percentage:.2f}% of the vote.")
-
+    
     # Determine the winning vote count and candidate 
     # 1. Determine if the votes are greater than the winning count 
     if (votes > winning_count) and (vote_percentage > winning_percentage):
